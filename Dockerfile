@@ -8,7 +8,7 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
-
+RUN chmod +x ./mvnw
 # Build the application
 RUN ./mvnw clean package -DskipTests
 
@@ -22,6 +22,7 @@ COPY --from=builder /app/target/backend-0.0.1-SNAPSHOT.jar .
 
 # Expose the default Spring Boot port
 EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app/backend-0.0.1-SNAPSHOT.jar"]
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "/app/backend-0.0.1-SNAPSHOT.jar"]
+
